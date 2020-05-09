@@ -65,7 +65,7 @@
                   <Component id="jButtonGonder" max="32767" attributes="0"/>
                   <Component id="jLabelFileName" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="307" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="51" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>

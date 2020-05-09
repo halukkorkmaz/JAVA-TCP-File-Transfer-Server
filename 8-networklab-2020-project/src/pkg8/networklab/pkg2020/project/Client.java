@@ -6,9 +6,12 @@
 package pkg8.networklab.pkg2020.project;
 
 /**
- *
- * @author abdulhalik
+ * @author fatih
+ * @author samet
+ * 
+ * Ekleme yaptığımız her kod boluğu için yorum satırı eklemeye çalışalım, anlaşılır olsun.
  */
-public class ClientTest {
+
+public class Client {
     
 }
