@@ -27,10 +27,11 @@ public class TCP_Client_UI extends javax.swing.JFrame {
      */
     TCP_Client client;
     File selectedFile;
-    
+
     String SourcePath;
     String DestPath;
     JFileChooser destFile;
+    JFileChooser uploadFile;
 
     public TCP_Client_UI() {
         initComponents();
@@ -73,6 +74,8 @@ public class TCP_Client_UI extends javax.swing.JFrame {
         downloadButton = new javax.swing.JButton();
         destSelectorButton = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        uploadButton = new javax.swing.JButton();
+        chooseFileButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -118,6 +121,20 @@ public class TCP_Client_UI extends javax.swing.JFrame {
 
         jButton1.setText("jButton1");
 
+        uploadButton.setText("Yükle");
+        uploadButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                uploadButtonActionPerformed(evt);
+            }
+        });
+
+        chooseFileButton.setText("Dosya Seç");
+        chooseFileButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chooseFileButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -129,10 +146,16 @@ public class TCP_Client_UI extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(301, 301, 301)
                         .addComponent(connectButton))
-                    .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(downloadButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(destSelectorButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(uploadButton)
+                                .addComponent(chooseFileButton))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(downloadButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(destSelectorButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 542, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(24, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -145,9 +168,13 @@ public class TCP_Client_UI extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addComponent(jFileChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 355, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(destSelectorButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(destSelectorButton)
+                    .addComponent(chooseFileButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(downloadButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(uploadButton)
+                    .addComponent(downloadButton))
                 .addContainerGap(38, Short.MAX_VALUE))
         );
 
@@ -160,7 +187,7 @@ public class TCP_Client_UI extends javax.swing.JFrame {
 
     private void jFileChooser1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jFileChooser1PropertyChange
         // TODO add your handling code here:
-        
+
     }//GEN-LAST:event_jFileChooser1PropertyChange
 
     private void connectButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_connectButtonActionPerformed
@@ -188,23 +215,55 @@ public class TCP_Client_UI extends javax.swing.JFrame {
         selectedFile = destFile.getSelectedFile();
         DestPath = selectedFile.getAbsolutePath();
         DestPath += "/";
-        System.out.println(DestPath);
+        //System.out.println(DestPath);
     }//GEN-LAST:event_destSelectorButtonActionPerformed
 
     private void downloadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downloadButtonActionPerformed
         // TODO add your handling code here:
         SourcePath = jFileChooser1.getSelectedFile().getAbsolutePath();
+        System.out.println(SourcePath);
+        System.out.println(DestPath);
         try {
             Thread.sleep(1000);
         } catch (InterruptedException ex) {
             Logger.getLogger(TCP_Client_UI.class.getName()).log(Level.SEVERE, null, ex);
         }
+        client.sendFile(SourcePath, DestPath);
+    }//GEN-LAST:event_downloadButtonActionPerformed
+
+    private void uploadButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_uploadButtonActionPerformed
+        // TODO add your handling code here:
+        DestPath = jFileChooser1.getCurrentDirectory().getAbsolutePath();
+        DestPath +=  "/";
+        System.out.println(SourcePath);
+        System.out.println(DestPath);
         try {
-            client.sendFile(SourcePath, DestPath);
-        } catch (IOException ex) {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
             Logger.getLogger(TCP_Client_UI.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_downloadButtonActionPerformed
+        client.sendFile(SourcePath, DestPath);
+        
+        /*try {
+            Thread.sleep(1000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(TCP_Client_UI.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+        
+        jFileChooser1.updateUI();
+    }//GEN-LAST:event_uploadButtonActionPerformed
+
+    private void chooseFileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseFileButtonActionPerformed
+        // TODO add your handling code here:
+        uploadFile = new JFileChooser();
+        uploadFile.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+        uploadFile.setCurrentDirectory(new File(System.getProperty("user.home")));
+        int result = uploadFile.showOpenDialog(this);
+        selectedFile = uploadFile.getSelectedFile();
+        SourcePath = selectedFile.getAbsolutePath();
+        //DestPath += "/";
+        System.out.println(SourcePath);
+    }//GEN-LAST:event_chooseFileButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -243,11 +302,13 @@ public class TCP_Client_UI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton chooseFileButton;
     private javax.swing.JButton connectButton;
     private javax.swing.JButton destSelectorButton;
     private javax.swing.JButton downloadButton;
     private javax.swing.JButton jButton1;
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton uploadButton;
     // End of variables declaration//GEN-END:variables
 }

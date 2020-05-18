@@ -99,7 +99,7 @@ public class TCP_Server {
                 // output : server'a bağlı olan client'a mesaj göndermek için
                 clientInput = new ObjectInputStream(clientSocket.getInputStream());
                 clientOutput = new ObjectOutputStream(clientSocket.getOutputStream());
-                
+                allClients.add(clientOutput);
                 // FileEvent nesnesini okuma ve dosyayı diske kopyalama.
                 System.out.println("Merhaba, " + socket);
                 //------------------------------
@@ -122,14 +122,12 @@ public class TCP_Server {
                         fileOutputStream.flush();
                         fileOutputStream.close();
                         System.out.println("Output file : " + outputFile + " başarı ile kaydedildi. ");
-                        Thread.sleep(3000);
+                        //Thread.sleep(3000);
                         //System.exit(0);
 
                     } catch (IOException e) {
                         e.printStackTrace();
                     } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
@@ -166,4 +164,3 @@ public class TCP_Server {
     }
 
 }
-

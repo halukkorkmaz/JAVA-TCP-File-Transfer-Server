@@ -44,7 +44,7 @@ public class TCP_Client {
     /**
      * Dosya objesini yolla.
      */
-    public void sendFile(String sourceFilePath, String destinationPath) throws IOException {
+    public void sendFile(String sourceFilePath, String destinationPath) {
         
         fileEvent = new FileEvent();
         String fileName = sourceFilePath.substring(sourceFilePath.lastIndexOf("/") + 1, sourceFilePath.length());
@@ -78,11 +78,9 @@ public class TCP_Client {
         try {
             outputStream.writeObject(fileEvent);
             System.out.println("Başarılı.. " + fileEvent.getFilename());
-            Thread.sleep(3000);
+            //Thread.sleep(3000);
             //System.exit(0);
         } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
