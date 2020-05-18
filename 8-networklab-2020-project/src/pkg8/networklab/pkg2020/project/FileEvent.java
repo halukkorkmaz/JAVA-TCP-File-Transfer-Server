@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package socketfiletransferdemo;
+package pkg8.networklab.pkg2020.project;
 
 import java.io.Serializable;
 
